@@ -163,7 +163,35 @@ Domain: 6 <= t <= 60
 </p>
 
 
-## 6) Requirements
+## 6) Visualizing the Curve in Desmos
+
+To make the results easier to understand, I also plotted the final fitted curve in **Desmos**.
+
+Desmos is a free online graphing tool that allows us to see the curve interactively.  
+It helps visually confirm that the estimated parameters produce a curve that matches the data.
+
+### Steps to View in Desmos
+
+1. Go to → https://www.desmos.com/calculator
+2. Copy and paste the final parametric expression:
+(
+tcos(0.490759) - e^(0.021389abs(t))sin(0.3t)sin(0.490759) + 54.900351,
+42 + tsin(0.490759) + e^(0.021389abs(t))*sin(0.3t)*cos(0.490759)
+)
+
+3. Set the domain:
+6 <= t <= 60
+
+4. You will see the smooth parametric curve drawn on the screen.
+
+### Screenshot of the Curve (Desmos View)
+
+<p align="center">
+  <img src="images/desmos_graph.png" width="75%" alt="Final Curve in Desmos">
+</p>
+
+
+## 7) Requirements
 Python 3.x
 numpy
 pandas
