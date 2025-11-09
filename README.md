@@ -71,5 +71,34 @@ These values best match the given dataset according to the L1 loss criteria.
 
 ---
 
-## 4) Final Curve (Copy-Paste into Desmos)
+## 4) Final Curve 
+(
+tcos(0.490759) - e^(0.021389abs(t))sin(0.3t)sin(0.490759) + 54.900351,
+42 + tsin(0.490759) + e^(0.021389abs(t))*sin(0.3t)*cos(0.490759)
+)
+Domain: 6 <= t <= 60
+
+---
+
+## 5) Result Plots
+
+<p align="center">
+  <img src="C:\Users\Nataraj\Downloads\obs_vs_fit.png" width="75%" alt="Observed vs Fitted">
+</p>
+
+<p align="center">
+  <img src="C:\Users\Nataraj\Downloads\err_vs_t.png" width="75%" alt="Absolute Errors vs t">
+</p>
+
+<p align="center">
+  <img src="C:\Users\Nataraj\Downloads\cum.png" width="75%" alt="Cumulative L1 Error">
+</p>
+
+
+## 6) Requirements
+Python 3.x
+numpy
+pandas
+matplotlib
+
 
