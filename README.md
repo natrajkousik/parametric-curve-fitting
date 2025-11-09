@@ -187,7 +187,7 @@ tcos(0.490759) - e^(0.021389abs(t))sin(0.3t)sin(0.490759) + 54.900351,
 ### Screenshot of the Curve (Desmos View)
 
 <p align="center">
-  <img src="images/desmos_graph.png" width="75%" alt="Final Curve in Desmos">
+  <img src="images/desmos.png" width="75%" alt="Final Curve in Desmos">
 </p>
 
 
