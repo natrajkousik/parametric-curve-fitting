@@ -83,15 +83,15 @@ Domain: 6 <= t <= 60
 ## 5) Result Plots
 
 <p align="center">
-  <img src="C:\Users\Nataraj\Downloads\obs_vs_fit.png" width="75%" alt="Observed vs Fitted">
+  <img src="images/observed_vs_fitted.png" width="75%" alt="Observed vs Fitted">
 </p>
 
 <p align="center">
-  <img src="C:\Users\Nataraj\Downloads\err_vs_t.png" width="75%" alt="Absolute Errors vs t">
+  <img src="images/errors_vs_t.png" width="75%" alt="Absolute Errors vs t">
 </p>
 
 <p align="center">
-  <img src="C:\Users\Nataraj\Downloads\cum.png" width="75%" alt="Cumulative L1 Error">
+  <img src="images/cumulative_l1.png" width="75%" alt="Cumulative L1 Error">
 </p>
 
 
