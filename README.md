@@ -35,28 +35,96 @@ We are also given a CSV file (`xy_data.csv`) that contains a set of points that 
 
 ## 2) Key Idea and Approach
 
-Since the dataset only provides (x, y) values but not the corresponding t values, we assume the points are sampled uniformly in the given range:
+The dataset we are given contains only the final *(x, y)* coordinates of the curve.  
+However, the curve itself is defined in terms of a parameter `t`, which changes from **6 to 60**.  
+This means that the data points are positions along the curve, but we are not told *which* `t` value produced each point.
 
-\[
-t = \text{linspace}(6, 60, N)
-\]
+So the first question is:  
+**How do we assign a `t` value to each point in the dataset?**
 
-(where N is the number of data points)
+Since the problem statement does not specify how fast the curve was traced or whether some points were sampled more densely than others, the most reasonable and standard assumption is:
 
-To find θ, M, and X, we minimize the **L1 distance** between actual and predicted points:
+> The points were taken **evenly** along the curve.
 
-\[
-\text{Loss} = \sum |x_{\text{obs}} - x_{\text{pred}}| + |y_{\text{obs}} - y_{\text{pred}}|
-\]
+Therefore, if the dataset contains **N** points, we generate `t` values evenly spaced between 6 and 60:
 
-### Optimization Strategy Used
+t = linspace(6, 60, N)
 
-1. **Global random search** to find a good starting region  
-2. **Local refinement step** (small adjustments to reduce error)
+This gives us a one-to-one pairing:
 
-This method is reliable and avoids getting stuck in bad solutions.
+| Data Point | Assigned t Value |
+|-----------|-----------------|
+| (x₁, y₁) | t₁ |
+| (x₂, y₂) | t₂ |
+| ... | ... |
+| (xₙ, yₙ) | tₙ |
+
+This step is important because now each observed coordinate has a corresponding `t`, and we can evaluate the parametric curve at that `t` to see whether our current guess of θ, M, and X matches the real data.
 
 ---
+
+### **Comparing the Curve to the Data**
+
+For any guess of θ, M, and X:
+
+1. We compute the predicted `x_pred(t)` and `y_pred(t)` using the formulas from the problem.
+2. We compare these predictions with the real `(x_obs, y_obs)` data points.
+
+But how do we measure “how close” they are?
+
+The assignment explicitly says that the evaluation will use the **L1 distance**, which is simply the sum of absolute differences.  
+So the error (or *loss*) is calculated as:
+
+
+Loss = Σ ( |x_obs - x_pred| + |y_obs - y_pred| )
+
+This loss value tells us **how well the curve fits** the given dataset:
+- Small loss → Good fit  
+- Large loss → Poor fit  
+
+Our goal is to **find the values of θ, M, and X that minimize this loss.**
+
+---
+
+### **Optimization Strategy (How We Search for the Best θ, M, and X)**
+
+The curve equation is **non-linear**, and the parameters interact with each other in complex ways.  
+Because of that, there is no simple formula to directly compute θ, M, and X.  
+So we use a **numerical optimization approach**:
+
+#### **Step 1 — Global Random Search**
+We start by randomly picking many different combinations of θ, M, and X *within their allowed ranges*.  
+This helps us roughly identify regions where the fit is already somewhat good.  
+This prevents us from getting stuck in a bad part of the parameter space.
+
+#### **Step 2 — Local Refinement**
+Once we find a promising parameter region, we **fine-tune** the values:
+
+- Make small adjustments to θ, M, and X
+- Check if the loss improves
+- If yes → keep the change
+- If not → reduce step size and try again
+
+This continues until changes no longer improve the result.
+
+This two-phase approach:
+- Ensures we **explore broadly** first
+- Then **focus on precision** later
+- Leads to a reliable and stable final answer
+
+In short, we **start wide**, and then **zoom in**.
+
+---
+
+### Why This Method Works Well
+
+- It does **not** require gradients or complex calculus.
+- It stays **within the allowed parameter ranges** at all times.
+- It is **robust to noise**, because L1 distance handles outliers well.
+- It produces **repeatable results** that are easy to verify and explain.
+
+This makes the solution both **mathematically sound and practically reliable**.
+
 
 ## 3) Final Estimated Parameters
 
